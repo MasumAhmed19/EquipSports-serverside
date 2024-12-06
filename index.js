@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config()
 
 const app = express();
@@ -43,6 +43,16 @@ async function run(){
         app.get('/equipments', async(req, res)=>{
             const result= await sportEquipments.find().toArray();
             res.send(result)
+        })
+
+
+        // Delete method
+        app.delete('/equipments/:objId', async (req, res)=>{
+            const id= req.params.objId;
+            const query= {_id: new ObjectId(id)};
+            const result = await sportEquipments.deleteOne(query);
+            res.send(result)
+            console.log(id);
         })
 
 
