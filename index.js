@@ -10,10 +10,7 @@ const port = process.env.PORT || 8080;
 app.use(express.json());
 app.use(cors());
 
-// DB_User="admin"
-// DB_Pass="qqHbw9WRD3PbQEw2"
-// const uri = "mongodb+srv://${process.env.DB_User}:${process.env.DB_Pass}@cluster0.f0l8v.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-const uri = "mongodb+srv://admin:qqHbw9WRD3PbQEw2@cluster0.f0l8v.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = `mongodb+srv://${process.env.DB_User}:${process.env.DB_Pass}@cluster0.f0l8v.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -78,6 +75,7 @@ async function run(){
                     stock:data?.stock,
                     pTime:data?.pTime,
                     imgurl:data?.imgurl,
+
                     description:data?.description,
                 },
             };
