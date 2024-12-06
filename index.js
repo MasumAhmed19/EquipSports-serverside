@@ -55,6 +55,37 @@ async function run(){
             console.log(id);
         })
 
+        // update api
+        app.get('/equipments/:objId', async (req, res)=>{
+            const id= req.params.objId;
+            const query= {_id: new ObjectId(id)};
+            const result = await sportEquipments.findOne(query);
+            res.send(result)
+            console.log(id);
+        })
+
+
+        app.patch('/equipments/:objId',  async (req, res)=>{
+            const id= req.params.objId;
+            const data = req.body;
+            const query= {_id: new ObjectId(id)};
+            const update= {
+                $set:{
+                    name:data?.name,
+                    category:data?.category,
+                    price:data?.price,
+                    rating:data?.rating,
+                    stock:data?.stock,
+                    pTime:data?.pTime,
+                    imgurl:data?.imgurl,
+                    description:data?.description,
+                },
+            };
+
+            const result = await sportEquipments.updateOne(query, update);
+            res.send(result)
+        })
+
 
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
         
