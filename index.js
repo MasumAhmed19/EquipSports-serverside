@@ -28,7 +28,6 @@ async function run(){
         // await client.db("admin").command({ ping: 1 });
 
         const sportEquipments= client.db('sportsEquipmentDB').collection('equipments')
-        const sportEquipmentsUsers = client.db('sportsEquipmentDB').collection('users')
 
         app.post('/equipments', async (req, res)=>{
             const data= req.body; // frontend er body theke data ashbe
@@ -85,8 +84,17 @@ async function run(){
             res.send(result)
         })
 
+        // get data matching with email
+        app.get('/my-equipments/:email', async (req, res)=>{
+            const email= req.params.email;
+            const query= {userEmail: email};
+            const results = await sportEquipments.find(query).toArray();
+            res.send(results)
+            console.log(email);
+        })
 
-        console.log("Pinged your deployment. You successfully coynnected to MongoDB!");
+
+        console.log("Pinged your deployment. You successfully connected to MongoDB!");
         
     } catch (error) {
         console.log(error)
