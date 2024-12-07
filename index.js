@@ -28,6 +28,7 @@ async function run(){
         // await client.db("admin").command({ ping: 1 });
 
         const sportEquipments= client.db('sportsEquipmentDB').collection('equipments')
+        const sportEquipmentsUsers = client.db('sportsEquipmentDB').collection('users')
 
         app.post('/equipments', async (req, res)=>{
             const data= req.body; // frontend er body theke data ashbe
@@ -85,7 +86,7 @@ async function run(){
         })
 
 
-        console.log("Pinged your deployment. You successfully connected to MongoDB!");
+        console.log("Pinged your deployment. You successfully coynnected to MongoDB!");
         
     } catch (error) {
         console.log(error)
