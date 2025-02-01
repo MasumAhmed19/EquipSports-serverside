@@ -1,14 +1,15 @@
+require('dotenv').config()
 const express = require('express');
 const cors = require('cors');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-require('dotenv').config()
 
 const app = express();
 
 const port = process.env.PORT || 8080;
 // middleware 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
+
 
 const uri = `mongodb+srv://${process.env.DB_User}:${process.env.DB_Pass}@cluster0.f0l8v.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
@@ -61,6 +62,14 @@ async function run(){
             console.log(id);
         })
 
+        // details
+        app.get('/details/:objId', async (req, res)=>{
+            const id= req.params.objId;
+            const query= {_id: new ObjectId(id)};
+            const result = await sportEquipments.findOne(query);
+            res.send(result)
+            console.log(id);
+        })
 
         app.patch('/equipments/:objId',  async (req, res)=>{
             const id= req.params.objId;
